@@ -1,0 +1,76 @@
+create database my_personel;
+use my_personel;
+CREATE TABLE DEPT(dept_number int(2) not null , dept_name varchar(14),loc varchar(14),primary key(dept_number));
+CREATE TABLE EMP(emp_number INT(4) NOT NULL, 
+      ename VARCHAR(10), job VARCHAR(25), 
+      hiredate DATE, MGR INT(4),  sal FLOAT(7,2), comm FLOAT(7,2),
+      dept_number INT(2), 
+      PRIMARY KEY(emp_number ),
+      FOREIGN KEY(dept_number) REFERENCES DEPT(dept_number));
+show tables;
+select * from emp;
+select * from dept;
+INSERT INTO DEPT(dept_number, dept_name, loc) 
+            VALUES (10, 'ACCOUNTING', 'NEW YORK'); 
+INSERT INTO DEPT(dept_number, dept_name, loc)
+            VALUES (20, 'RESEARCH', 'DALLAS');                                                                     
+INSERT INTO DEPT(dept_number, dept_name, loc)
+            VALUES (30, 'SALES', 'CHICAGO');                                                                    
+INSERT INTO DEPT(dept_number, dept_name, loc)
+            VALUES (40, 'OPERATIONS', 'BOSTON'); 
+INSERT INTO DEPT(dept_number, dept_name, loc)
+            VALUES (50, 'MARKETING', 'ATHENS');
+INSERT INTO EMP
+  VALUES (10, 'MIXALIS', 'ANALYST', '1989/01/01', 15, 3000, NULL, 10);
+INSERT INTO EMP
+  VALUES (15, 'ALEXANDROS', 'ANALYST', '1995/05/02', 15, 1200, 150, 10);
+INSERT INTO EMP
+  VALUES (20, 'ELEFTHERIA', 'SALESMAN', '1977/07/07', 20, 2000, NULL, 20);                    
+INSERT INTO EMP
+  VALUES (30, 'PANAGIOTIS', 'PROGRAMMER', '2004/05/04', 15, 1800, 200, 10); 
+  INSERT INTO EMP
+  VALUES (35, 'GIANNIS', 'PROGRAMMER', '2004/05/04', 15, 1800, 200, 10); 
+INSERT INTO EMP
+  VALUES (40, 'SOKRATIS', 'DEVELOPER', '2004/05/04', 15, 1800, 200, 50); 
+INSERT INTO EMP
+  VALUES (50, 'LEPENIOTIS', 'SALESMAN', '2004/05/04', 15, 1800, 200, 30);
+INSERT INTO EMP
+  VALUES (60, 'ADAM', 'DEVELOPER', '2004/05/04', 15, 1800, 200, 40); 
+select * from emp;
+CREATE TABLE PROJ (projno INT(3) NOT NULL,
+                   pname VARCHAR(15),
+                   budget FLOAT(12,2),
+     PRIMARY KEY(projno));
+INSERT INTO proj(projno, pname, budget)
+            VALUES(100, 'PAYROLL', 100000);
+INSERT INTO proj(projno, pname, budget)
+            VALUES(200, 'PERSONNEL',200000 );
+INSERT INTO proj(projno, pname, budget)
+            VALUES(300, 'SALES', 150000);
+	CREATE TABLE ASSIGN(
+ emp_number INT(4) NOT NULL, projno INT(3) NOT NULL,
+ ptime INT(3),
+PRIMARY KEY(emp_number,projno),
+FOREIGN KEY(emp_number) REFERENCES EMP(emp_number),
+FOREIGN KEY(projno) REFERENCES PROJ(projno));
+INSERT INTO assign(emp_number, projno, ptime)
+                 VALUES(10,300, 40);
+INSERT INTO assign(emp_number, projno, ptime)
+                 VALUES(10, 200, 60);
+INSERT INTO assign(emp_number, projno, ptime)
+                 VALUES(15, 100, 100);
+INSERT INTO assign(emp_number, projno, ptime)
+                 VALUES(20, 200, 100);
+INSERT INTO assign(emp_number, projno, ptime)
+                 VALUES(30, 100, 100);
+show tables;
+select * from emp;
+drop table emp;
+select * from assign;
+select ename from emp where (sal+ ifnull(comm,0))>2000;
+select emp_number,ename,job,sal   from emp order by(sal+ ifnull(comm,0)); 
+select max(sal) from emp;
+select * from emp;
+select emp_number,ename,sal from emp,dept where emp.dept_number=dept.dept_number and emp.dept_number=10 order by sal asc;
+select * from emp where job='programmer';
+select * from dept
